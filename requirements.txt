@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: ferreteria-cloud-erp
+    env: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_PATH
+        value: /data/ferreteria_cloud_erp.db
+      - key: IVA_RATE
+        value: "0.19"
+      - key: SUPERIOR_USERNAME
+        value: gus
+      - key: OPENAI_MODEL
+        value: gpt-5.4-mini
+    disk:
+      name: ferreteria-cloud-erp-data
+      mountPath: /data
+      sizeGB: 1
